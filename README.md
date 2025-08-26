@@ -23,7 +23,7 @@ A simple and intuitive web application to track your daily expenses, built using
 
 ## Live Demo
 
-Check out the live demo of the Expense Tracker web app: [https://your-vercel-app-url.vercel.app](https://your-vercel-app-url.vercel.app)
+Check out the live demo of the Expense Tracker web app: [https://expense-tracker-xi-two-20.vercel.app/](https://expense-tracker-xi-two-20.vercel.app/)
 
 ## Contributing
 
