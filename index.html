@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker::Track your daily expenses</title>
+
+    <!-- bootstrap_CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.7/css/bootstrap.min.css"
+        integrity="sha512-fw7f+TcMjTb7bpbLJZlP8g2Y4XcCyFZW8uy8HsRZsH/SwbMw0plKHFHr99DN3l04VsYNwvzicUX/6qurvIxbxw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- fallback_bootstrap_stylesheet -->
+    <link rel="stylesheet" href="./assets/css/bootstrap.min.css" />
+
+    <!-- fontawesome_icons_CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
+        integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- fallback_fontawesome_stylesheet -->
+    <link rel="stylesheet" href="./assets/css/all.min.css" />
+    <!-- custom_css -->
+    <link rel="stylesheet" href="./assets/css/style.css" />
+</head>
+
+<body>
+    <!-- header_start -->
+    <header class="mb-4">
+        <nav class="navbar navbar-expand-lg bg-body-light shadow-sm">
+            <div class="container-fluid p-0">
+                <a href="index.html" class="navbar-brand" title="Expense Tracker">
+                    <i class="fa-solid fa-book"></i>Expense_Tracker</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <div class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <a class="btn btn-primary btn-sm" href="index.html" target="_self" title="home"><i
+                                class="fa-solid fa-home"></i>Home</a>
+                        <a class="btn btn-warning btn-sm ms-2" href="faq.html" target="_self" title="faq"><i
+                                class="fa-solid fa-search"></i>FAQ</a>
+                        <button class="btn btn-success btn-sm ms-2 me-2" id="add-expense-btn"><i
+                                class="fa-solid fa-plus"></i>Add Expense</button>
+                        <!-- <button class="btn btn-sm btn-outline-primary me-2" id="contact-btn">Contact</button> -->
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <!-- header_end_here -->
+
+    <!-- main_section_start -->
+    <main class="container mt-4">
+        <!-- form_section_start -->
+        <section id="expense-form" class="d-none border p-3 rounded shadow-sm mb-3">
+            <form>
+                <div class="mb-3">
+                    <label for="date" class="form-label">Select Date</label>
+                    <input type="date" name="date" id="date" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="amount" class="form-label">Enter Amount</label>
+                    <input type="number" name="amount" class="form-control" id="amount" required>
+                </div>
+                <div class="mb-3">
+                    <label for="description" class="form-label">Add Description</label>
+                    <textarea id="description" name="desc" class="form-control" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Add</button>
+                <button type="reset" class="btn btn-outline-danger">Cancel</button>
+            </form>
+        </section>
+        <!-- form_section_end -->
+
+        <!-- expense_details -->
+        <section id="expense-list" class="container shadow-sm rounded">
+            <div class="row d-flex justify-content-between align-items-center mb-3">
+                <div class="col-md-3 align-self-start py-2">
+                    <h2 class="text-primary"><i class="fa-regular fa-calendar"></i>Daily Expenses</h2>
+                </div>
+                <div class="col-md-4 d-flex py-2">
+                    <input type="date" name="fdate" id="filter-date" class="form-control form-control-sm">
+                    <button class="btn btn-sm btn-outline-secondary ms-2" id="filter-btn">
+                        <i class="fa-solid fa-filter"></i>Filter</button>
+                </div>
+                <div class="col-md-4 d-flex p-0 justify-content-end">
+                    <button class="btn btn-sm btn-outline-success me-2" id="download-daily-btn">
+                        <i class="fa-solid fa-download"></i>Daily Summary</button>
+                    <button class="btn btn-sm btn-outline-success me-2" id="download-weekly-btn"><i
+                            class="fa-solid fa-download"></i>Weekly Summary</button>
+                    <button class="btn btn-sm btn-outline-success me-1" id="download-monthly-btn"><i
+                            class="fa-solid fa-download"></i>Monthly Summary</button>
+                </div>
+            </div>
+
+            <!-- Expense_table -->
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Date</th>
+                        <th>Amount</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody id="expense-table-body"></tbody>
+            </table>
+            <!-- pagination_section -->
+            <div id="pagination-container" class="mb-2"></div>
+            <!-- expense_summary -->
+            <div id="summary" class="container p-1">
+                <h3 class="text-success">Net Expenses: <span id="total-spend"></span></h3>
+            </div>
+        </section>
+    </main>
+
+    <!-- Bootstrap_JS_CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.7/js/bootstrap.min.js"
+        integrity="sha512-zKeerWHHuP3ar7kX2WKBSENzb+GJytFSBL6HrR2nPSR1kOX1qjm+oHooQtbDpDBSITgyl7QXZApvDfDWvKjkUw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- fontawesome_script_CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/js/all.min.js"
+        integrity="sha512-gBYquPLlR76UWqCwD06/xwal4so02RjIR0oyG1TIhSGwmBTRrIkQbaPehPF8iwuY9jFikDHMGEelt0DtY7jtvQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- js_pdf_CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/3.0.1/jspdf.umd.min.js"
+        integrity="sha512-ad3j5/L4h648YM/KObaUfjCsZRBP9sAOmpjaT2BDx6u9aBrKFp7SbeHykruy83rxfmG42+5QqeL/ngcojglbJw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/5.0.2/jspdf.plugin.autotable.min.js"
+        integrity="sha512-JizZOUNesiGhMcp9fsA/9W31FOat6QysBM8hSj6ir8iIANIUJ2mhko7Lo1+j0ErftmJ8SebMZLm9iielKjeIEQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- main_jScript -->
+    <script src="./assets/js/script.js"></script>
+    <!-- fallback_scripts -->
+    <script src="./assets/js/bootstrap.min.js"></script>
+    <script src="./assets/js/all.min.js"></script>
+    <script src="./assets/js/jspdf.umd.min.js"></script>
+    <script src="./assets/js/jspdf.plugin.autotable.min.js"></script>
+</body>
+
+</html>
